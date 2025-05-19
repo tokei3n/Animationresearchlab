@@ -1,45 +1,316 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anime Event 2025</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anime Expo 2025</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+      background-color: #fff;
+      color: #333;
+    }
+
+    .header {
+      background-color: #e60012;
+      padding: 1rem 0;
+      color: white;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+    }
+
+    .site-logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav a:hover {
+      opacity: 0.7;
+    }
+
+    .hero {
+      background: url('https://via.placeholder.com/1600x600/111/fff?text=Anime+Expo+2025') no-repeat center center/cover;
+      height: 70vh;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .hero-overlay {
+      background: rgba(0, 0, 0, 0.5);
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .hero-text {
+      color: white;
+    }
+
+    .hero-text h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-button {
+      background-color: #e60012;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #c0000f;
+    }
+
+    .features, .exhibitors, .schedule {
+      padding: 3rem 1rem;
+      background-color: #f8f8f8;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      flex: 1 1 250px;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .card h4 {
+      color: #e60012;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .exhibitor-logos {
+      display: flex;
+      overflow-x: auto;
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    .exhibitor-logos img {
+      width: 150px;
+      height: auto;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .tab-button {
+      background: #ddd;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
+    }
+
+    .tab-button.active {
+      background: #e60012;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+      text-align: center;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .countdown {
+      text-align: center;
+      padding: 2rem;
+      font-size: 2rem;
+      background: #fffbe7;
+    }
+
+    .footer {
+      background-color: #222;
+      color: #aaa;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav ul {
+        flex-direction: column;
+        display: none;
+      }
+      .nav.active ul {
+        display: flex;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header class="main-header">
-    <div class="container">
-      <h1 class="logo">Anime Event 2025</h1>
-      <nav class="main-nav">
+  <header class="header">
+    <div class="header-inner">
+      <h1 class="site-logo">Anime Expo 2025</h1>
+      <nav class="nav">
         <ul>
           <li><a href="#">トップ</a></li>
           <li><a href="#">開催概要</a></li>
           <li><a href="#">ステージ</a></li>
-          <li><a href="#">出展企業</a></li>
+          <li><a href="#">出展社一覧</a></li>
           <li><a href="#">アクセス</a></li>
+          <li><a href="#">お問い合わせ</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <section class="hero">
-    <div class="hero-text">
-      <h2>アニメのすべてがここに！</h2>
-      <p>2025年春、東京ビッグサイトにて開催！</p>
+    <div class="hero-overlay">
+      <div class="hero-text">
+        <h2>アニメの未来がここに集結！</h2>
+        <p>2025年3月22日〜24日 @ 東京ビッグサイト</p>
+        <a href="#" class="cta-button">詳細を見る</a>
+      </div>
     </div>
   </section>
 
-  <section class="info-section">
-    <div class="container">
-      <h3>イベント概要</h3>
-      <p>アニメイベント2025は、最新アニメの情報・ステージ・展示が満載の総合イベントです。</p>
+  <section class="countdown" id="countdown"></section>
+
+  <section class="features">
+    <h3 class="section-title">イベントの見どころ</h3>
+    <div class="grid">
+      <div class="card">
+        <h4>出展ブース</h4>
+        <p>人気アニメや制作会社の展示が満載。</p>
+      </div>
+      <div class="card">
+        <h4>ステージイベント</h4>
+        <p>豪華声優陣によるライブやトークショー！</p>
+      </div>
+      <div class="card">
+        <h4>限定グッズ</h4>
+        <p>イベント限定アイテムを多数販売！</p>
+      </div>
     </div>
   </section>
 
-  <footer class="main-footer">
-    <div class="container">
-      <p>&copy; 2025 Anime Event 実行委員会</p>
+  <section class="exhibitors">
+    <h3 class="section-title">出展企業</h3>
+    <div class="exhibitor-logos">
+      <img src="https://via.placeholder.com/150x80?text=Company+1" alt="Company 1" />
+      <img src="https://via.placeholder.com/150x80?text=Company+2" alt="Company 2" />
+      <img src="https://via.placeholder.com/150x80?text=Company+3" alt="Company 3" />
+      <img src="https://via.placeholder.com/150x80?text=Company+4" alt="Company 4" />
     </div>
+  </section>
+
+  <section class="schedule">
+    <h3 class="section-title">ステージスケジュール</h3>
+    <div class="tabs">
+      <button class="tab-button active" onclick="showTab('day1')">Day 1</button>
+      <button class="tab-button" onclick="showTab('day2')">Day 2</button>
+      <button class="tab-button" onclick="showTab('day3')">Day 3</button>
+    </div>
+    <div id="day1" class="tab-content active">
+      <p>10:00 - オープニングセレモニー<br>13:00 - 人気アニメステージ</p>
+    </div>
+    <div id="day2" class="tab-content">
+      <p>11:00 - 新作発表会<br>15:00 - 声優ライブ</p>
+    </div>
+    <div id="day3" class="tab-content">
+      <p>10:00 - クロージングセレモニー<br>12:00 - 抽選会</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 Anime Expo 実行委員会</p>
   </footer>
+
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    const countdown = () => {
+      const eventDate = new Date('2025-03-22T00:00:00');
+      const now = new Date();
+      const diff = eventDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').textContent = "イベント開催中！";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+
+      document.getElementById('countdown').textContent = `開催まであと ${days}日 ${hours}時間 ${minutes}分`;
+    };
+
+    setInterval(countdown, 60000);
+    countdown();
+  </script>
 </body>
 </html>
