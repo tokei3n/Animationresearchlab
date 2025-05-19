@@ -1,59 +1,66 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>文春風ニュースサイト</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>文春オンライン風デザイン</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
-    <div class="container">
-      <h1 class="logo">文春風ニュース</h1>
-      <nav class="nav">
+  <header>
+    <div class="nav">
+      <div class="logo">文春オンライン</div>
+      <nav>
         <ul>
-          <li><a href="#">最新</a></li>
-          <li><a href="#">特集</a></li>
-          <li><a href="#">政治</a></li>
-          <li><a href="#">社会</a></li>
-          <li><a href="#">エンタメ</a></li>
+          <li>新着</li>
+          <li>ランキング</li>
+          <li>カテゴリ</li>
+          <li>特集</li>
+          <li>連載</li>
+          <li>週刊文春</li>
+          <li>文藝春秋</li>
+          <li>WOMAN</li>
+          <li>CINEMA</li>
+          <li>書籍</li>
+          <li>検索</li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main class="main">
-    <section class="featured-article">
-      <img src="https://via.placeholder.com/960x480" alt="注目記事画像" />
+  <main>
+    <section class="hero">
+      <img src="hero.jpg" alt="コスプレ記事">
       <div class="overlay">
-        <h2>注目記事タイトルがここに入ります</h2>
-        <p>これは注目記事のリード文です。興味を引くように短くまとめます。</p>
+        <h1>「コスプレで万博に行くなんてモラルがない」と批判殺到…</h1>
+        <p>“万博コスプレ”で炎上した女性が明かす、本当の理由</p>
+        <span class="author">徳重 龍徳</span>
       </div>
     </section>
 
-    <section class="articles">
-      <article>
-        <img src="https://via.placeholder.com/400x250" alt="記事画像" />
-        <h3>記事タイトル 1</h3>
-        <p>記事の簡単な説明文。要約またはリード文。</p>
+    <section class="sub-articles">
+      <article class="sub-article">
+        <img src="sub1.jpg" alt="記事画像">
+        <div class="text">
+          <span class="tag">SCOOP!</span>
+          <h2>レーサーB元会長（60）ら逮捕の違法薬物事件</h2>
+        </div>
       </article>
-      <article>
-        <img src="https://via.placeholder.com/400x250" alt="記事画像" />
-        <h3>記事タイトル 2</h3>
-        <p>記事の簡単な説明文。要約またはリード文。</p>
-      </article>
-      <article>
-        <img src="https://via.placeholder.com/400x250" alt="記事画像" />
-        <h3>記事タイトル 3</h3>
-        <p>記事の簡単な説明文。要約またはリード文。</p>
+      <article class="sub-article">
+        <img src="sub2.jpg" alt="記事画像">
+        <div class="text">
+          <span class="tag new">NEW</span>
+          <h2>アンパンマンのマーチでお昼を</h2>
+        </div>
       </article>
     </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 文春風ニュース</p>
-    </div>
-  </footer>
+    <section class="ranking">
+      <h2>ランキング</h2>
+      <ul>
+        <li><span class="rank">1</span> 永野芽郁＆田中圭「熱愛LINE」だけじゃない…</li>
+        <li><span class="rank">2</span> ママが泣いた、死んじゃうかも！</li>
+      </ul>
+    </section>
+  </main>
 </body>
 </html>
