@@ -5,38 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Portfolio</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ AOSライブラリのCSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- 動画付きヒーローセクション -->
+  <!-- ヒーローセクション -->
   <header class="hero">
     <video autoplay muted loop playsinline class="background-video">
       <source src="e5e3a009f249801a09aa9b923bb2a550.mp4" type="video/mp4">
       お使いのブラウザは動画に対応していません。
     </video>
     <div class="hero-content">
-      <h1>My Portfolio</h1>
-      <p>私の制作実績をご紹介します</p>
+      <h1>アニメ</h1>
+      <p>世界に届け__</p>
     </div>
   </header>
 
-  <!-- 横スクロール作品紹介 -->
+  <!-- 横スクロール WORKS セクション -->
   <section class="horizontal-scroll-section" id="works">
     <h2>WORKS</h2>
     <div class="scroll-container">
-      <div class="scroll-item">
+      <div class="scroll-item" data-aos="fade-up">
         <img src="minami-kawayo.jpg" alt="Project 1" />
         <p>プロジェクト1</p>
       </div>
-      <div class="scroll-item">
+      <div class="scroll-item" data-aos="fade-up" data-aos-delay="100">
         <img src="something-else-it-shares-with-rumiko-takahashi-is-that-it-will-awaken-unholiness-among-some-readers.png" alt="Project 2" />
         <p>プロジェクト2</p>
       </div>
-      <div class="scroll-item">
+      <div class="scroll-item" data-aos="fade-up" data-aos-delay="200">
         <img src="this-show-really-could-make-you-golf-is-cool-which-confirms-propaganda-is-the-strongest-weapon.jpg" alt="Project 3" />
         <p>プロジェクト3</p>
       </div>
-      <div class="scroll-item">
+      <div class="scroll-item" data-aos="fade-up" data-aos-delay="300">
         <img src="dandadan-arc1.png" alt="Project 4" />
         <p>プロジェクト4</p>
       </div>
@@ -48,7 +51,7 @@
     <p>&copy; 2025 My Portfolio</p>
   </footer>
 
-  <!-- 横スクロールをホイールで制御 -->
+  <!-- 横スクロールのホイール制御 -->
   <script>
     const container = document.querySelector('.scroll-container');
     container.addEventListener('wheel', (e) => {
@@ -56,5 +59,16 @@
       container.scrollLeft += e.deltaY;
     });
   </script>
+
+  <!-- ✅ AOSライブラリのJS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,       // アニメーションの長さ（ミリ秒）
+      once: true,          // 一度だけアニメーション（再表示しない）
+      easing: 'ease-out',  // 緩やかな動き
+    });
+  </script>
+
 </body>
 </html>
