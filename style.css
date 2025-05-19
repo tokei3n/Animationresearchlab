@@ -15,25 +15,16 @@ a {
   color: inherit;
 }
 
-/* ヒーローセクション */
+/* ヒーローセクション（背景画像に変更） */
 .hero {
   position: relative;
   height: 100vh;
-  overflow: hidden;
-  color: white;
+  background: url('minami-kawayo.jpg') center center / cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-}
-
-.background-video {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
+  color: white;
 }
 
 .hero::before {
