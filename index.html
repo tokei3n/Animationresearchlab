@@ -1,67 +1,45 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>アニメーション研究ラボ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Event 2025</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <div class="logo">アニメーション研究ラボ</div>
-      <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-      <nav id="nav-menu">
+  <header class="main-header">
+    <div class="container">
+      <h1 class="logo">Anime Event 2025</h1>
+      <nav class="main-nav">
         <ul>
-          <li>新着</li>
-          <li>カテゴリ</li>
-          <li>検索</li>
+          <li><a href="#">トップ</a></li>
+          <li><a href="#">開催概要</a></li>
+          <li><a href="#">ステージ</a></li>
+          <li><a href="#">出展企業</a></li>
+          <li><a href="#">アクセス</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <img src="minami-kawayo.jpg" alt="コスプレ記事" />
-      <div class="overlay">
-        <h1>テスト</h1>
-        <p>テスト。</p>
-        <span class="author">テスト。。</span>
-      </div>
-    </section>
+  <section class="hero">
+    <div class="hero-text">
+      <h2>アニメのすべてがここに！</h2>
+      <p>2025年春、東京ビッグサイトにて開催！</p>
+    </div>
+  </section>
 
-    <section class="carousel-container">
-      <button class="arrow left" id="prev">&#10094;</button>
-      <div class="sub-articles" id="carousel">
-        <article class="sub-article">
-          <img src="minami-kawayo.jpg" alt="記事1" />
-          <div class="text">
-            <span class="tag">独占</span>
-            <h2>テスト。</h2>
-          </div>
-        </article>
-        <article class="sub-article">
-          <img src="minami-kawayo.jpg" alt="記事2" />
-          <div class="text">
-            <span class="tag new">新着</span>
-            <h2>テスト。。</h2>
-          </div>
-        </article>
-        <article class="sub-article">
-          <img src="minami-kawayo.jpg" alt="記事3" />
-          <div class="text">
-            <span class="tag">注目</span>
-            <h2>テスト。。。。</h2>
-          </div>
-        </article>
-      </div>
-      <button class="arrow right" id="next">&#10095;</button>
-      <div class="dots" id="dots"></div>
-    </section>
-  </main>
+  <section class="info-section">
+    <div class="container">
+      <h3>イベント概要</h3>
+      <p>アニメイベント2025は、最新アニメの情報・ステージ・展示が満載の総合イベントです。</p>
+    </div>
+  </section>
 
-  <script src="script.js"></script>
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2025 Anime Event 実行委員会</p>
+    </div>
+  </footer>
 </body>
 </html>
