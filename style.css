@@ -6,15 +6,10 @@
   font-style: normal;
 }
 
-/* 全体に適用 */
-body {
-  font-family: 'Keifont', sans-serif;
-}
-
 /* 基本設定 */
 body {
   margin: 0;
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: 'Keifont', sans-serif;
   background: #fff;
   color: #222;
 }
@@ -28,7 +23,7 @@ a {
   color: inherit;
 }
 
-/* ヒーローセクション（背景画像に変更） */
+/* ヒーローセクション（背景画像） */
 .hero {
   position: relative;
   height: 100vh;
