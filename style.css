@@ -1,3 +1,16 @@
+/* フォント読み込み */
+@font-face {
+  font-family: 'Keifont';
+  src: url('fonts/keifont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 全体に適用 */
+body {
+  font-family: 'Keifont', sans-serif;
+}
+
 /* 基本設定 */
 body {
   margin: 0;
