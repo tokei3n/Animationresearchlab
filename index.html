@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>アニメ研究ラボ</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>アニメーション研究ラボ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <div class="nav">
-      <div class="logo">アニメ研究ラボ</div>
+      <div class="logo">アニメーション研究ラボ</div>
       <div class="menu-toggle" id="menu-toggle">&#9776;</div>
       <nav id="nav-menu">
         <ul>
@@ -23,32 +24,42 @@
 
   <main>
     <section class="hero">
-      <img src="minami-kawayo.jpg" alt="コスプレ記事">
+      <img src="minami-kawayo.jpg" alt="コスプレ記事" />
       <div class="overlay">
         <h1>テスト</h1>
-        <p>これはテストです。</p>
-        <span class="author">テスト。</span>
+        <p>テスト。</p>
+        <span class="author">テスト。。</span>
       </div>
     </section>
 
-    <section class="sub-articles">
-      <article class="sub-article">
-        <img src="minami-kawayo.jpg" alt="記事画像">
-        <div class="text">
-          <span class="tag">独占</span>
-          <h2>テスト</h2>
-        </div>
-      </article>
-      <article class="sub-article">
-        <img src="minami-kawayo.jpg" alt="記事画像">
-        <div class="text">
-          <span class="tag new">新着</span>
-          <h2>テスト。</h2>
-        </div>
-      </article>
+    <section class="carousel-container">
+      <button class="arrow left" id="prev">&#10094;</button>
+      <div class="sub-articles" id="carousel">
+        <article class="sub-article">
+          <img src="minami-kawayo.jpg" alt="記事1" />
+          <div class="text">
+            <span class="tag">独占</span>
+            <h2>テスト。</h2>
+          </div>
+        </article>
+        <article class="sub-article">
+          <img src="minami-kawayo.jpg" alt="記事2" />
+          <div class="text">
+            <span class="tag new">新着</span>
+            <h2>テスト。。</h2>
+          </div>
+        </article>
+        <article class="sub-article">
+          <img src="minami-kawayo.jpg" alt="記事3" />
+          <div class="text">
+            <span class="tag">注目</span>
+            <h2>テスト。。。。</h2>
+          </div>
+        </article>
+      </div>
+      <button class="arrow right" id="next">&#10095;</button>
+      <div class="dots" id="dots"></div>
     </section>
-
-    
   </main>
 
   <script src="script.js"></script>
