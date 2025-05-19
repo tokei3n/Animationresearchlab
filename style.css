@@ -1,4 +1,4 @@
-/* 共通設定 */
+/* 全体の基本設定 */
 body {
   margin: 0;
   font-family: "Helvetica Neue", sans-serif;
@@ -16,16 +16,39 @@ a {
   text-decoration: none;
 }
 
-/* ヒーローセクション */
+/* === ヒーローセクション（動画背景） === */
 .hero {
+  position: relative;
   height: 100vh;
-  background: #000;
+  overflow: hidden;
   color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
   text-align: center;
+}
+
+.background-video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* 半透明オーバーレイで文字を見やすく */
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-content h1 {
@@ -37,7 +60,7 @@ a {
   margin-top: 1rem;
 }
 
-/* 横スクロールセクション */
+/* === 横スクロールセクション === */
 .horizontal-scroll-section {
   padding: 60px 20px;
   background-color: #f7f7f7;
@@ -84,7 +107,7 @@ a {
   font-weight: bold;
 }
 
-/* フッター */
+/* === フッター === */
 footer {
   text-align: center;
   padding: 30px;
@@ -93,10 +116,14 @@ footer {
   color: #555;
 }
 
-/* レスポンシブ調整 */
+/* === レスポンシブ対応 === */
 @media (max-width: 768px) {
   .hero-content h1 {
     font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
   }
 
   .scroll-item {

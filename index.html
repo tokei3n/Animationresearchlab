@@ -8,15 +8,19 @@
 </head>
 <body>
 
-  <!-- ヒーローセクション -->
+  <!-- 動画付きヒーローセクション -->
   <header class="hero">
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="e5e3a009f249801a09aa9b923bb2a550.mp4" type="video/mp4">
+      お使いのブラウザは動画に対応していません。
+    </video>
     <div class="hero-content">
       <h1>My Portfolio</h1>
       <p>私の制作実績をご紹介します</p>
     </div>
   </header>
 
-  <!-- 横スクロール作品セクション -->
+  <!-- 横スクロール作品紹介 -->
   <section class="horizontal-scroll-section" id="works">
     <h2>WORKS</h2>
     <div class="scroll-container">
@@ -39,11 +43,12 @@
     </div>
   </section>
 
+  <!-- フッター -->
   <footer>
     <p>&copy; 2025 My Portfolio</p>
   </footer>
 
-  <!-- 横スクロールスクリプト -->
+  <!-- 横スクロールをホイールで制御 -->
   <script>
     const container = document.querySelector('.scroll-container');
     container.addEventListener('wheel', (e) => {
