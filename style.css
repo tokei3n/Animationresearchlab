@@ -1,79 +1,105 @@
-/* 基本設定 */
+/* 共通設定 */
 body {
   margin: 0;
   font-family: "Helvetica Neue", sans-serif;
-  background-color: #fff;
-  color: #333;
+  background: #fff;
+  color: #222;
   line-height: 1.6;
-  scroll-behavior: smooth;
 }
 
-header.hero {
+h1, h2 {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ヒーローセクション */
+.hero {
   height: 100vh;
   background: #000;
-  color: #fff;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   text-align: center;
 }
 
 .hero-content h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 3.5rem;
 }
 
-.section {
-  padding: 80px 20px;
-  max-width: 960px;
-  margin: 0 auto;
+.hero-content p {
+  font-size: 1.2rem;
+  margin-top: 1rem;
 }
 
-.section h2 {
+/* 横スクロールセクション */
+.horizontal-scroll-section {
+  padding: 60px 20px;
+  background-color: #f7f7f7;
+}
+
+.horizontal-scroll-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
   font-size: 2rem;
-  margin-bottom: 1rem;
-  text-align: center;
 }
 
-/* WORKS */
-.works-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  gap: 30px;
+  padding: 0 20px 20px 20px;
 }
 
-.work-item {
-  background: #f2f2f2;
-  padding: 40px;
-  text-align: center;
+.scroll-item {
+  flex: 0 0 auto;
+  width: 300px;
+  scroll-snap-align: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
-}
-
-.work-item:hover {
-  transform: translateY(-5px);
-}
-
-/* ABOUT・CONTACT */
-.about p,
-.contact p {
-  max-width: 600px;
-  margin: 0 auto;
   text-align: center;
 }
 
-.contact a {
-  display: block;
-  text-align: center;
-  margin-top: 20px;
+.scroll-item:hover {
+  transform: scale(1.05);
+}
+
+.scroll-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px 12px 0 0;
+}
+
+.scroll-item p {
+  padding: 12px;
   font-weight: bold;
-  color: #000;
-  text-decoration: none;
 }
 
 /* フッター */
 footer {
   text-align: center;
-  padding: 20px;
+  padding: 30px;
   background: #eee;
   font-size: 0.9rem;
+  color: #555;
+}
+
+/* レスポンシブ調整 */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .scroll-item {
+    width: 250px;
+  }
 }
