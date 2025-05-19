@@ -4,19 +4,18 @@ body {
   font-family: "Helvetica Neue", sans-serif;
   background: #fff;
   color: #222;
-  line-height: 1.6;
 }
 
-h1, h2 {
+h1, h2, h3 {
   margin: 0;
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+  color: inherit;
 }
 
-/* ヒーロー（動画背景） */
+/* ヒーローセクション */
 .hero {
   position: relative;
   height: 100vh;
@@ -41,7 +40,8 @@ a {
   content: "";
   position: absolute;
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
@@ -60,7 +60,7 @@ a {
   margin-top: 1rem;
 }
 
-/* 横スクロールセクション */
+/* WORKS セクション */
 .horizontal-scroll-section {
   padding: 60px 20px;
   background-color: #f7f7f7;
@@ -76,20 +76,18 @@ a {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
   gap: 30px;
   padding: 0 20px 20px 20px;
 }
 
 .scroll-item {
   flex: 0 0 auto;
-  width: 300px;
+  width: 320px;
   scroll-snap-align: center;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
-  text-align: center;
 }
 
 .scroll-item:hover {
@@ -98,13 +96,43 @@ a {
 
 .scroll-item img {
   width: 100%;
-  height: auto;
   border-radius: 12px 12px 0 0;
+  display: block;
 }
 
-.scroll-item p {
-  padding: 12px;
-  font-weight: bold;
+.item-content {
+  padding: 15px;
+}
+
+.item-content h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.tech {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #0056b3;
 }
 
 /* フッター */
@@ -116,17 +144,13 @@ footer {
   color: #555;
 }
 
-/* レスポンシブ */
+/* レスポンシブ対応 */
 @media (max-width: 768px) {
   .hero-content h1 {
     font-size: 2.5rem;
   }
 
-  .hero-content p {
-    font-size: 1rem;
-  }
-
   .scroll-item {
-    width: 250px;
+    width: 280px;
   }
 }
