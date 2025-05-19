@@ -116,33 +116,6 @@ nav ul li:hover {
   color: white;
 }
 
-.ranking {
-  padding: 20px;
-}
-
-.ranking h2 {
-  font-size: 20px;
-  border-bottom: 2px solid #222;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
-}
-
-.ranking ul {
-  list-style: none;
-  padding: 0;
-}
-
-.ranking li {
-  margin: 10px 0;
-  font-size: 16px;
-}
-
-.rank {
-  font-weight: bold;
-  margin-right: 10px;
-  color: red;
-}
-
 /* ---------------- Responsive ---------------- */
 @media screen and (max-width: 768px) {
   nav ul {
