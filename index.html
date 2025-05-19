@@ -1,99 +1,53 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Animation research lab</title>
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- ✅ AOSライブラリのCSS -->
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ニュースサイト風テンプレート</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- ヒーローセクション -->
-<header class="hero">
-  <div class="hero-content">
-    <h1 data-aos="fade-up" data-aos-duration="1500">アニメーション研究ラボ</h1>
-    <p data-aos="fade-up" data-aos-delay="300" data-aos-duration="1500">
-      ここに投稿される記事のほとんどはリークです😂また、不定期更新。
-    </p>
-  </div>
-</header>
-
- <!-- WORKSセクション -->
-  <section class="horizontal-scroll-section" id="works">
-    <h2>最新の記事</h2>
-    <div class="scroll-container">
-
-      <!-- プロジェクトカード1 -->
-      <div class="scroll-item" data-aos="fade-up">
-        <img src="0223_21.jpg" alt="Project 1">
-        <div class="item-content">
-          <h3>ウマ娘 シンデレラグレイ</h3>
-          <p class="description">やがて「怪物」と呼ばれる灰被りの少女が、今、新たな伝説を刻む――。</p>
-          <a href="#" class="btn" target="_blank">詳しく見る</a>
-        </div>
-      </div>
-
-      <!-- プロジェクトカード2 -->
-      <div class="scroll-item" data-aos="fade-up" data-aos-delay="100">
-        <img src="https://via.placeholder.com/400x250?text=Project+2" alt="Project 2">
-        <div class="item-content">
-          <h3>プロジェクト2</h3>
-          <p class="description">やがて「怪物」と呼ばれる灰被りの少女が、今、新たな伝説を刻む――。</p>
-          <a href="#" class="btn" target="_blank">詳しく見る</a>
-        </div>
-      </div>
-
-      <!-- プロジェクトカード3 -->
-      <div class="scroll-item" data-aos="fade-up" data-aos-delay="200">
-        <img src="https://via.placeholder.com/400x250?text=Project+3" alt="Project 3">
-        <div class="item-content">
-          <h3>プロジェクト3</h3>
-          <p class="description">React を使ったToDoアプリのフロントエンド。</p>
-          <p class="tech">使用技術：React / CSS</p>
-          <a href="#" class="btn" target="_blank">詳しく見る</a>
-        </div>
-      </div>
-
-      <!-- プロジェクトカード4 -->
-      <div class="scroll-item" data-aos="fade-up" data-aos-delay="300">
-        <img src="https://via.placeholder.com/400x250?text=Project+4" alt="Project 4">
-        <div class="item-content">
-          <h3>プロジェクト4</h3>
-          <p class="description">レスポンシブ対応のWebデザイン作品。</p>
-          <p class="tech">使用技術：HTML / CSS / Media Queries</p>
-          <a href="#" class="btn" target="_blank">詳しく見る</a>
-        </div>
-      </div>
-
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo">週刊メディアニュース</h1>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#">最新記事</a></li>
+          <li><a href="#">特集</a></li>
+          <li><a href="#">連載</a></li>
+          <li><a href="#">ランキング</a></li>
+        </ul>
+      </nav>
     </div>
-  </section>
+  </header>
 
-  <!-- フッター -->
-  <footer>
-    <p>&copy; 2025 My Portfolio</p>
+  <main class="container">
+    <section class="headline-article">
+      <img src="https://via.placeholder.com/800x400" alt="注目記事画像">
+      <h2 class="headline-title">【特集】ある作家の「知られざる日常」</h2>
+      <p class="headline-summary">数々のヒット作を生み出してきた作家が語る、創作の裏側とは――。</p>
+    </section>
+
+    <section class="article-list">
+      <article>
+        <h3><a href="#">独自取材：都内で急増する○○問題の現場</a></h3>
+        <p>新たな証言と共に浮かび上がる背景とは。</p>
+      </article>
+      <article>
+        <h3><a href="#">現地レポート：被災地の今、必要な支援とは</a></h3>
+        <p>記者が見たリアルな現場。</p>
+      </article>
+      <article>
+        <h3><a href="#">コラム：日常を見つめ直すヒント</a></h3>
+        <p>何気ない生活に潜む価値とは。</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Media Weekly News. All rights reserved.</p>
+    </div>
   </footer>
-
-  <!-- 横スクロールのホイール制御 -->
-  <script>
-    const container = document.querySelector('.scroll-container');
-    container.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      container.scrollLeft += e.deltaY;
-    });
-  </script>
-
-  <!-- ✅ AOSライブラリのJS -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 800,       // アニメーションの長さ（ミリ秒）
-      once: true,          // 一度だけアニメーション（再表示しない）
-      easing: 'ease-out',  // 緩やかな動き
-    });
-  </script>
-
 </body>
 </html>
