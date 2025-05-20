@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>ログイン | アニメーション研究ラボ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-6 text-center">ログイン</h1>
+
+    <input id="email" type="email" placeholder="メールアドレス" class="w-full p-3 border rounded mb-4" />
+    <input id="password" type="password" placeholder="パスワード" class="w-full p-3 border rounded mb-4" />
+    
+    <button onclick="login()" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+      ログイン
+    </button>
+
+    <p class="text-center text-sm text-gray-600 mt-4">
+      アカウントをお持ちでない方は <a href="/signup.html" class="text-blue-500 underline">新規登録</a>
+    </p>
+
+    <div id="error" class="mt-4 text-red-500 text-sm text-center hidden"></div>
+  </div>
+
+  <script>
+    // 🔧 Firebase設定（ご自身の情報に置き換えてください）
+    const firebaseConfig = {
+      apiKey: "AIzaSyCddiuCk4CPQ7nOw6IAd4hAhnNV9n1IaI8",
+      authDomain: "anime-lab-ff8bc.firebaseapp.com",
+      projectId: "anime-lab-ff8bc",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = firebase.auth();
+
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = "/"; // ログイン成功後、トップページに遷移
+        })
+        .catch((error) => {
+          document.getElementById('error').textContent = error.message;
+          document.getElementById('error').classList.remove('hidden');
+        });
+    }
+  </script>
+</body>
+</html>
