@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>新規登録 | アニメーション研究ラボ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-6 text-center">新規登録</h1>
+
+    <input id="email" type="email" placeholder="メールアドレス" class="w-full p-3 border rounded mb-4" />
+    <input id="password" type="password" placeholder="パスワード（6文字以上）" class="w-full p-3 border rounded mb-4" />
+    
+    <button onclick="signup()" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
+      登録する
+    </button>
+
+    <p class="text-center text-sm text-gray-600 mt-4">
+      すでにアカウントをお持ちの方は <a href="/login.html" class="text-blue-500 underline">ログイン</a>
+    </p>
+
+    <div id="error" class="mt-4 text-red-500 text-sm text-center hidden"></div>
+    <div id="success" class="mt-4 text-green-600 text-sm text-center hidden">登録に成功しました！</div>
+  </div>
+
+  <script>
+    // ✅ Firebase設定（※自分の情報に置き換えてください）
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = firebase.auth();
+
+    function signup() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // 成功時
+          document.getElementById('success').classList.remove('hidden');
+          document.getElementById('error').classList.add('hidden');
+          setTimeout(() => {
+            window.location.href = "/"; // トップページへリダイレクト
+          }, 1500);
+        })
+        .catch((error) => {
+          // 失敗時
+          document.getElementById('error').textContent = error.message;
+          document.getElementById('error').classList.remove('hidden');
+          document.getElementById('success').classList.add('hidden');
+        });
+    }
+  </script>
+</body>
+</html>
