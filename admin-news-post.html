@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ニュース投稿 | アニメーション研究ラボ</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="max-w-xl mx-auto mt-10 bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">ニュース投稿</h1>
+
+    <div id="auth-warning" class="hidden text-red-600 font-semibold mb-4">管理者のみアクセス可能です。</div>
+
+    <form id="news-form" class="space-y-4 hidden">
+      <input type="text" id="title" placeholder="タイトル" required class="w-full border p-2 rounded" />
+      <textarea id="content" placeholder="本文" rows="6" required class="w-full border p-2 rounded"></textarea>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">投稿</button>
+    </form>
+
+    <div id="success-msg" class="mt-4 text-green-600 hidden">投稿しました！</div>
+  </div>
+
+  <script>
+    // Firebase 設定
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+    };
+
+    const ADMIN_UID = "管理者のUID"; // 管理者の UID をここに入力
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    auth.onAuthStateChanged(user => {
+      if (user && user.uid === ADMIN_UID) {
+        document.getElementById("news-form").classList.remove("hidden");
+      } else {
+        document.getElementById("auth-warning").classList.remove("hidden");
+      }
+    });
+
+    document.getElementById("news-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const content = document.getElementById("content").value;
+
+      await db.collection("news").add({
+        title: title,
+        content: content,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        authorUid: auth.currentUser.uid,
+      });
+
+      document.getElementById("success-msg").classList.remove("hidden");
+      document.getElementById("news-form").reset();
+    });
+  </script>
+</body>
+</html>
