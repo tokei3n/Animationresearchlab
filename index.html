@@ -5,78 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>アニメーション研究ラボ</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      font-family: "Helvetica Neue", "Yu Gothic", sans-serif;
-    }
-  </style>
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-white text-gray-900">
 
   <!-- Header -->
-  <header class="bg-gray-800 shadow-md sticky top-0 z-50">
+  <header class="bg-white shadow">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-pink-400">アニメーション研究ラボ</h1>
-      <div class="flex items-center space-x-6 text-sm">
-        <nav class="flex space-x-6 text-gray-300">
-          <a href="#" class="hover:text-pink-400">作品一覧</a>
-          <a href="#" class="hover:text-pink-400">記事</a>
-          <a href="#" class="hover:text-pink-400">用語集</a>
-          <a href="#" class="hover:text-pink-400">ラボについて</a>
-        </nav>
-        <a href="/login.html" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 text-sm">
-          ログイン
-        </a>
-      </div>
+      <h1 class="text-2xl font-bold text-blue-600">アニメーション研究ラボ</h1>
+      <nav class="space-x-4 text-sm">
+        <a href="#" class="text-gray-700 hover:text-blue-600">アニメ</a>
+        <a href="#" class="text-gray-700 hover:text-blue-600">声優</a>
+        <a href="#" class="text-gray-700 hover:text-blue-600">ゲーム</a>
+        <a href="#" class="text-gray-700 hover:text-blue-600">マンガ</a>
+        <a href="#" class="text-gray-700 hover:text-blue-600">特集</a>
+      </nav>
+      <a href="/login.html" class="text-sm text-blue-600 hover:underline">ログイン</a>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 py-10">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h2 class="text-4xl font-bold mb-4">🎬 今週の注目アニメ</h2>
-      <p class="text-gray-200 mb-6">研究者目線で最新話題作を深掘り！</p>
-      <div class="rounded-lg overflow-hidden shadow-lg">
-        <img src="https://via.placeholder.com/1200x400" alt="Featured Anime" class="w-full h-72 object-cover" />
+  <!-- Carousel -->
+  <section class="mt-6">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="https://via.placeholder.com/1200x400?text=特集1" alt="特集1" class="w-full h-64 object-cover rounded">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://via.placeholder.com/1200x400?text=特集2" alt="特集2" class="w-full h-64 object-cover rounded">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://via.placeholder.com/1200x400?text=特集3" alt="特集3" class="w-full h-64 object-cover rounded">
+          </div>
+        </div>
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
       </div>
     </div>
   </section>
 
-  <!-- Latest Articles -->
-  <section class="py-12 bg-gray-900">
+  <!-- Latest News -->
+  <section class="mt-10">
     <div class="max-w-7xl mx-auto px-4">
-      <h3 class="text-2xl font-semibold mb-6 border-l-4 border-pink-500 pl-4">📝 最新記事</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <div class="bg-gray-800 p-4 rounded-lg shadow hover:scale-105 transform transition">
-          <img src="https://via.placeholder.com/400x200" class="rounded mb-3" />
-          <h4 class="font-bold text-lg text-pink-400">作品Aの演出技法を分析</h4>
-          <p class="text-sm text-gray-400">2025年5月20日</p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded-lg shadow hover:scale-105 transform transition">
-          <img src="https://via.placeholder.com/400x200" class="rounded mb-3" />
-          <h4 class="font-bold text-lg text-pink-400">作画崩壊の歴史と原因とは</h4>
-          <p class="text-sm text-gray-400">2025年5月18日</p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded-lg shadow hover:scale-105 transform transition">
-          <img src="https://via.placeholder.com/400x200" class="rounded mb-3" />
-          <h4 class="font-bold text-lg text-pink-400">CGアニメの進化と限界</h4>
-          <p class="text-sm text-gray-400">2025年5月15日</p>
-        </div>
-      </div>
+      <h2 class="text-xl font-semibold border-b border-gray-300 pb-2 mb-4">最新ニュース</h2>
+      <ul class="space-y-4">
+        <li class="flex justify-between items-center">
+          <a href="#" class="text-blue-600 hover:underline">新作アニメ『タイトルA』の放送開始日が決定！</a>
+          <span class="text-sm text-gray-500">2025年5月20日</span>
+        </li>
+        <li class="flex justify-between items-center">
+          <a href="#" class="text-blue-600 hover:underline">声優インタビュー：山田太郎さんの最新コメント</a>
+          <span class="text-sm text-gray-500">2025年5月19日</span>
+        </li>
+        <li class="flex justify-between items-center">
+          <a href="#" class="text-blue-600 hover:underline">ゲーム『タイトルB』の最新情報が公開</a>
+          <span class="text-sm text-gray-500">2025年5月18日</span>
+        </li>
+      </ul>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 text-gray-400 py-6 mt-10 text-sm">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between">
+  <footer class="bg-gray-100 mt-10 py-6">
+    <div class="max-w-7xl mx-auto px-4 text-sm text-gray-600 flex justify-between">
       <p>&copy; 2025 アニメーション研究ラボ</p>
       <div class="space-x-4">
-        <a href="#" class="hover:text-white">運営者情報</a>
-        <a href="#" class="hover:text-white">プライバシーポリシー</a>
-        <a href="#" class="hover:text-white">Twitter</a>
+        <a href="#" class="hover:underline">プライバシーポリシー</a>
+        <a href="#" class="hover:underline">お問い合わせ</a>
       </div>
     </div>
   </footer>
 
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper-container', {
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+    });
+  </script>
 </body>
 </html>
