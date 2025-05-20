@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>アニメーション研究ラボ</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Firebase SDK -->
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
@@ -22,29 +24,27 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const authLinks = document.getElementById('auth-links');
+    window.onload = () => {
+      const loginBtn = document.getElementById("login-btn");
+      const logoutBtn = document.getElementById("logout-btn");
+      const welcomeText = document.getElementById("welcome-text");
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          authLinks.innerHTML = `
-            <span class="text-sm text-gray-700">ようこそ, ${user.email}</span>
-            <button id="logout-btn" class="ml-4 text-sm text-red-500 hover:underline">ログアウト</button>
-          `;
-
-          document.getElementById('logout-btn').addEventListener('click', () => {
-            signOut(auth).then(() => {
-              location.reload();
-            });
-          });
+          loginBtn.classList.add("hidden");
+          logoutBtn.classList.remove("hidden");
+          welcomeText.textContent = `ようこそ、${user.email}さん！`;
         } else {
-          authLinks.innerHTML = `
-            <a href="login.html" class="text-sm text-blue-600 hover:underline">ログイン</a>
-            <a href="signup.html" class="ml-4 text-sm text-blue-600 hover:underline">新規登録</a>
-          `;
+          loginBtn.classList.remove("hidden");
+          logoutBtn.classList.add("hidden");
+          welcomeText.textContent = "";
         }
       });
-    });
+
+      logoutBtn.addEventListener("click", () => {
+        signOut(auth).catch((error) => console.error(error));
+      });
+    };
   </script>
 </head>
 <body class="bg-white text-gray-900">
@@ -60,15 +60,81 @@
         <a href="#" class="text-gray-700 hover:text-blue-600">マンガ</a>
         <a href="#" class="text-gray-700 hover:text-blue-600">特集</a>
       </nav>
-      <div id="auth-links" class="ml-4"></div>
+      <div class="flex items-center space-x-2">
+        <span id="welcome-text" class="text-sm text-gray-600"></span>
+        <a id="login-btn" href="login.html" class="text-sm text-blue-600 hover:underline">ログイン</a>
+        <button id="logout-btn" class="hidden text-sm text-red-600 hover:underline">ログアウト</button>
+      </div>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-4 mt-10">
-    <h2 class="text-2xl font-semibold mb-4">トップページへようこそ</h2>
-    <p class="text-gray-700">ログイン状態によって表示が切り替わります。</p>
-  </main>
+  <!-- Carousel -->
+  <section class="mt-6">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="https://via.placeholder.com/1200x400?text=特集1" alt="特集1" class="w-full h-64 object-cover rounded">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://via.placeholder.com/1200x400?text=特集2" alt="特集2" class="w-full h-64 object-cover rounded">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://via.placeholder.com/1200x400?text=特集3" alt="特集3" class="w-full h-64 object-cover rounded">
+          </div>
+        </div>
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Latest News -->
+  <section class="mt-10">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-xl font-semibold border-b border-gray-300 pb-2 mb-4">最新ニュース</h2>
+      <ul class="space-y-4">
+        <li class="flex justify-between items-center">
+          <a href="#" class="text-blue-600 hover:underline">新作アニメ『タイトルA』の放送開始日が決定！</a>
+          <span class="text-sm text-gray-500">2025年5月20日</span>
+        </li>
+        <li class="flex justify-between items-center">
+          <a href="#" class="text-blue-600 hover:underline">声優インタビュー：山田太郎さんの最新コメント</a>
+          <span class="text-sm text-gray-500">2025年5月19日</span>
+        </li>
+        <li class="flex justify-between items-center">
+          <a href="#" class="text-blue-600 hover:underline">ゲーム『タイトルB』の最新情報が公開</a>
+          <span class="text-sm text-gray-500">2025年5月18日</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 mt-10 py-6">
+    <div class="max-w-7xl mx-auto px-4 text-sm text-gray-600 flex justify-between">
+      <p>&copy; 2025 アニメーション研究ラボ</p>
+      <div class="space-x-4">
+        <a href="#" class="hover:underline">プライバシーポリシー</a>
+        <a href="#" class="hover:underline">お問い合わせ</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper-container', {
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+    });
+  </script>
 </body>
 </html>
