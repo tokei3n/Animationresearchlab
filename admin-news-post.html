@@ -7,7 +7,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -31,16 +30,14 @@
     const firebaseConfig = {
       apiKey: "AIzaSyCddiuCk4CPQ7nOw6IAd4hAhnNV9n1IaI8",
       authDomain: "anime-lab-ff8bc.firebaseapp.com",
-      projectId: "anime-lab-ff8bc",
-      storageBucket: "anime-lab-ff8bc.appspot.com", // Storage bucket を忘れずに
+      projectId: "anime-lab-ff8bc"
     };
 
-    const ADMIN_UID = "eJaCdhC1n2bpSLmG2UcBlOrhiPf2"; // 🔑 管理者のUIDに置き換えてください
+    const ADMIN_UID = "eJaCdhC1n2bpSLmG2UcBlOrhiPf2";
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
-    const storage = firebase.storage();
 
     auth.onAuthStateChanged(user => {
       if (user && user.uid === ADMIN_UID) {
@@ -68,21 +65,41 @@
         return;
       }
 
-      let imageUrl = "";
-
       try {
-        // 画像があればアップロード
+        let imageUrl = "";
+
         if (file) {
-          const storageRef = storage.ref().child(`news-images/${Date.now()}_${file.name}`);
-          const snapshot = await storageRef.put(file);
-          imageUrl = await snapshot.ref.getDownloadURL();
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+
+          const base64 = await new Promise((resolve, reject) => {
+            reader.onload = () => resolve(reader.result.split(',')[1]);
+            reader.onerror = error => reject(error);
+          });
+
+          const res = await fetch("https://api.imgur.com/3/image", {
+            method: "POST",
+            headers: {
+              Authorization: "Client-ID eec93df19796ecd", // 🔑 あなたのClient-IDに置き換えてください
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              image: base64,
+              type: "base64",
+            }),
+          });
+
+          const result = await res.json();
+
+          if (!result.success) throw new Error("Imgurアップロードに失敗しました");
+
+          imageUrl = result.data.link;
         }
 
-        // Firestore に投稿データを追加
         await db.collection("news").add({
           title,
           content,
-          imageUrl, // 空でも保存（画像がない場合は空文字列）
+          imageUrl,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           authorUid: user.uid,
         });
