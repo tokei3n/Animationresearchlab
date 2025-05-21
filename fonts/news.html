@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ニュース投稿 | アニメーション研究ラボ</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans leading-relaxed">
+
+  <div class="max-w-4xl mx-auto mt-12 bg-white p-6 rounded shadow">
+    <h1 class="text-3xl font-bold text-blue-700 border-b pb-2 mb-6">ニュース投稿</h1>
+
+    <div id="auth-warning" class="hidden text-red-600 font-semibold mb-4">管理者のみアクセス可能です。</div>
+
+    <form id="news-form" class="space-y-4 hidden">
+      <input type="text" id="title" placeholder="タイトル" required class="w-full border p-3 rounded text-lg" />
+      <textarea id="content" placeholder="本文" rows="6" required class="w-full border p-3 rounded text-base"></textarea>
+      <input type="file" id="image" accept="image/*" class="w-full border p-2 rounded" />
+      <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 font-semibold">投稿</button>
+    </form>
+
+    <div id="success-msg" class="mt-4 text-green-600 hidden font-semibold">投稿しました！</div>
+  </div>
+
+  <div class="max-w-4xl mx-auto mt-12 bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold text-blue-700 border-b pb-2 mb-6">ニュース一覧</h2>
+    <div id="news-list" class="space-y-12"></div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCddiuCk4CPQ7nOw6IAd4hAhnNV9n1IaI8",
+      authDomain: "anime-lab-ff8bc.firebaseapp.com",
+      projectId: "anime-lab-ff8bc"
+    };
+
+    const ADMIN_UID = "eJaCdhC1n2bpSLmG2UcBlOrhiPf2";
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    auth.onAuthStateChanged(user => {
+      if (user && user.uid === ADMIN_UID) {
+        document.getElementById("news-form").classList.remove("hidden");
+      } else {
+        document.getElementById("auth-warning").classList.remove("hidden");
+      }
+    });
+
+    document.getElementById("news-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const user = auth.currentUser;
+      if (!user || user.uid !== ADMIN_UID) {
+        alert("管理者としてログインしてください。");
+        return;
+      }
+
+      const title = document.getElementById("title").value.trim();
+      const content = document.getElementById("content").value.trim();
+      const file = document.getElementById("image").files[0];
+
+      if (!title || !content) {
+        alert("タイトルと本文は必須です。");
+        return;
+      }
+
+      let imageUrl = "";
+
+      try {
+        // Imgurで画像アップロード
+        if (file) {
+          const formData = new FormData();
+          formData.append("image", file);
+
+          const response = await fetch("https://api.imgur.com/3/image", {
+            method: "POST",
+            headers: {
+              Authorization: "Client-ID 2c52b0fe8f744ef", // ← あなたの Client-ID
+            },
+            body: formData
+          });
+
+          const data = await response.json();
+          imageUrl = data.data.link;
+        }
+
+        await db.collection("news").add({
+          title,
+          content,
+          imageUrl,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          authorUid: user.uid
+        });
+
+        document.getElementById("success-msg").classList.remove("hidden");
+        document.getElementById("news-form").reset();
+      } catch (error) {
+        console.error("投稿エラー:", error);
+        alert("投稿に失敗しました: " + error.message);
+      }
+    });
+
+    // 投稿一覧の表示（リアルタイム）
+    db.collection("news").orderBy("createdAt", "desc").onSnapshot(snapshot => {
+      const container = document.getElementById("news-list");
+      container.innerHTML = "";
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "border-b pb-8";
+
+        div.innerHTML = `
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">${data.title}</h3>
+          <p class="text-sm text-gray-500 mb-4">${data.createdAt?.toDate().toLocaleString("ja-JP") || "日時不明"}</p>
+          ${data.imageUrl ? `<div class="mb-4"><img src="${data.imageUrl}" alt="投稿画像" class="rounded shadow-md mx-auto max-w-full max-h-[400px] object-cover" /></div>` : ""}
+          <div class="text-lg whitespace-pre-wrap leading-relaxed text-gray-700">${data.content}</div>
+        `;
+        container.appendChild(div);
+      });
+    });
+  </script>
+</body>
+</html>
