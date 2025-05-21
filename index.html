@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>アニメーション研究ラボ</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+    import { getFirestore, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCddiuCk4CPQ7nOw6IAd4hAhnNV9n1IaI8",
@@ -23,11 +22,13 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    window.onload = () => {
+    window.onload = async () => {
       const loginBtn = document.getElementById("login-btn");
       const logoutBtn = document.getElementById("logout-btn");
       const welcomeText = document.getElementById("welcome-text");
+      const newsList = document.getElementById("latest-news");
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -44,12 +45,29 @@
       logoutBtn.addEventListener("click", () => {
         signOut(auth).catch((error) => console.error(error));
       });
+
+      try {
+        const q = query(collection(db, "news"), orderBy("createdAt", "desc"), limit(5));
+        const snapshot = await getDocs(q);
+        newsList.innerHTML = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const li = document.createElement("li");
+          li.className = "flex justify-between items-center";
+          const date = data.createdAt?.toDate().toLocaleDateString("ja-JP") || "日時不明";
+          li.innerHTML = `
+            <a href="#" class="text-blue-600 hover:underline">${data.title}</a>
+            <span class="text-sm text-gray-500">${date}</span>
+          `;
+          newsList.appendChild(li);
+        });
+      } catch (error) {
+        console.error("最新ニュースの取得に失敗しました:", error);
+      }
     };
   </script>
 </head>
 <body class="bg-white text-gray-900">
-
-  <!-- Header -->
   <header class="bg-white shadow">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       <h1 class="text-3xl font-bold text-blue-600">アニメーション研究ラボ</h1>
@@ -68,7 +86,6 @@
     </div>
   </header>
 
-  <!-- Carousel -->
   <section class="mt-6">
     <div class="max-w-7xl mx-auto px-4">
       <div class="swiper-container">
@@ -83,34 +100,20 @@
             <img src="https://via.placeholder.com/1200x400?text=特集3" alt="特集3" class="w-full h-64 object-cover rounded">
           </div>
         </div>
-        <!-- Pagination -->
         <div class="swiper-pagination"></div>
       </div>
     </div>
   </section>
 
-  <!-- Latest News -->
   <section class="mt-10">
     <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-xl font-semibold border-b border-gray-300 pb-2 mb-4">最新ニュース</h2>
-      <ul class="space-y-4">
-        <li class="flex justify-between items-center">
-          <a href="#" class="text-blue-600 hover:underline">新作アニメ『タイトルA』の放送開始日が決定！</a>
-          <span class="text-sm text-gray-500">2025年5月20日</span>
-        </li>
-        <li class="flex justify-between items-center">
-          <a href="#" class="text-blue-600 hover:underline">声優インタビュー：山田太郎さんの最新コメント</a>
-          <span class="text-sm text-gray-500">2025年5月19日</span>
-        </li>
-        <li class="flex justify-between items-center">
-          <a href="#" class="text-blue-600 hover:underline">ゲーム『タイトルB』の最新情報が公開</a>
-          <span class="text-sm text-gray-500">2025年5月18日</span>
-        </li>
+      <ul id="latest-news" class="space-y-4">
+        <li>読み込み中...</li>
       </ul>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="bg-gray-100 mt-10 py-6">
     <div class="max-w-7xl mx-auto px-4 text-sm text-gray-600 flex justify-between">
       <p>&copy; 2025 アニメーション研究ラボ</p>
@@ -121,7 +124,6 @@
     </div>
   </footer>
 
-  <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
     const swiper = new Swiper('.swiper-container', {
