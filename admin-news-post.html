@@ -18,6 +18,7 @@
 
     <form id="news-form" class="space-y-4 hidden">
       <input type="text" id="title" placeholder="タイトル" required class="w-full border p-2 rounded" />
+      <input type="text" id="tags" placeholder="タグ（カンマ区切り）" class="w-full border p-3 rounded text-sm" />
       <textarea id="content" placeholder="本文" rows="6" required class="w-full border p-2 rounded"></textarea>
       <input type="file" id="image" accept="image/*" class="w-full border p-2 rounded" />
       <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">投稿</button>
@@ -59,6 +60,8 @@
       const title = document.getElementById("title").value.trim();
       const content = document.getElementById("content").value.trim();
       const file = document.getElementById("image").files[0];
+      const rawTags = document.getElementById("tags").value;
+      const tags = rawTags.split(",").map(t => t.trim()).filter(t => t);
 
       if (!title || !content) {
         alert("タイトルと本文は必須です。");
@@ -100,6 +103,7 @@
           title,
           content,
           imageUrl,
+          tages,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           authorUid: user.uid,
         });

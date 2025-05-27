@@ -2,61 +2,122 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>記事詳細 | アニメーション研究ラボ</title>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-900 font-sans leading-relaxed">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      collection,
+      query,
+      where,
+      orderBy,
+      limit,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-  <div class="max-w-4xl mx-auto mt-12 bg-white p-6 rounded shadow">
-    <div id="article-container">
-      <p class="text-gray-500">読み込み中...</p>
-    </div>
-  </div>
-
-  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyCddiuCk4CPQ7nOw6IAd4hAhnNV9n1IaI8",
       authDomain: "anime-lab-ff8bc.firebaseapp.com",
       projectId: "anime-lab-ff8bc"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-    // クエリパラメータから記事IDを取得
-    const urlParams = new URLSearchParams(window.location.search);
-    const articleId = urlParams.get("id");
+    const getQueryParam = (key) => {
+      const params = new URLSearchParams(location.search);
+      return params.get(key);
+    };
 
-    const container = document.getElementById("article-container");
+    const articleId = getQueryParam("id");
 
-    if (articleId) {
-      db.collection("news").doc(articleId).get().then(doc => {
-        if (doc.exists) {
-          const data = doc.data();
-          const createdAt = data.createdAt?.toDate().toLocaleString("ja-JP") || "日時不明";
+    async function loadArticle() {
+      const docRef = doc(db, "news", articleId);
+      const docSnap = await getDoc(docRef);
 
-          container.innerHTML = `
-            <h1 class="text-3xl font-bold text-blue-700 mb-4">${data.title}</h1>
-            <p class="text-sm text-gray-500 mb-6">${createdAt}</p>
-            ${data.imageUrl ? `<div class="mb-6"><img src="${data.imageUrl}" alt="記事画像" class="rounded shadow-md mx-auto max-w-full max-h-[500px] object-cover" /></div>` : ""}
-            <div class="text-lg whitespace-pre-wrap leading-relaxed text-gray-700">${data.content}</div>
-            <div class="mt-8">
-              <a href="index.html" class="text-blue-600 hover:underline">&larr; ホームに戻る</a>
-            </div>
-          `;
-        } else {
-          container.innerHTML = "<p class='text-red-600'>記事が見つかりませんでした。</p>";
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+
+        // 本文表示
+        document.getElementById("title").textContent = data.title;
+        document.getElementById("date").textContent = data.createdAt?.toDate().toLocaleString("ja-JP") || "日時不明";
+        if (data.imageUrl) {
+          const img = document.createElement("img");
+          img.src = data.imageUrl;
+          img.alt = "投稿画像";
+          img.className = "w-full rounded shadow mb-6 max-h-[500px] object-cover";
+          document.getElementById("image").appendChild(img);
         }
-      }).catch(error => {
-        console.error("取得エラー:", error);
-        container.innerHTML = "<p class='text-red-600'>エラーが発生しました。</p>";
-      });
-    } else {
-      container.innerHTML = "<p class='text-red-600'>記事IDが指定されていません。</p>";
+        document.getElementById("content").textContent = data.content;
+
+        // タグ表示
+        if (data.tags?.length > 0) {
+          const tagContainer = document.getElementById("tags");
+          data.tags.forEach(tag => {
+            const span = document.createElement("span");
+            span.textContent = `#${tag}`;
+            span.className = "inline-block bg-blue-100 text-blue-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded";
+            tagContainer.appendChild(span);
+          });
+
+          // 関連ニュース読み込み
+          loadRelatedNews(data.tags, docSnap.id);
+        }
+
+      } else {
+        document.getElementById("title").textContent = "記事が見つかりませんでした。";
+      }
     }
+
+    async function loadRelatedNews(tags, currentId) {
+      const q = query(collection(db, "news"), where("tags", "array-contains-any", tags), orderBy("createdAt", "desc"), limit(5));
+      const snapshot = await getDocs(q);
+
+      const container = document.getElementById("related-news");
+      container.innerHTML = "";
+
+      let count = 0;
+      snapshot.forEach(doc => {
+        if (doc.id === currentId) return;
+        const data = doc.data();
+
+        const div = document.createElement("div");
+        div.className = "mb-4";
+
+        div.innerHTML = `
+          <a href="article.html?id=${doc.id}" class="text-blue-600 hover:underline font-semibold text-lg">${data.title}</a>
+          <p class="text-sm text-gray-500">${data.createdAt?.toDate().toLocaleDateString("ja-JP") || "日時不明"}</p>
+        `;
+        container.appendChild(div);
+        count++;
+      });
+
+      if (count === 0) {
+        container.innerHTML = "<p class='text-sm text-gray-500'>関連ニュースが見つかりませんでした。</p>";
+      }
+    }
+
+    window.onload = loadArticle;
   </script>
+</head>
+<body class="bg-white text-gray-900 font-sans leading-relaxed">
+  <div class="max-w-4xl mx-auto px-4 py-10">
+    <h1 id="title" class="text-3xl font-bold text-blue-700 mb-2">読み込み中...</h1>
+    <p id="date" class="text-sm text-gray-500 mb-6"></p>
+
+    <div id="image"></div>
+    <div id="content" class="whitespace-pre-wrap leading-relaxed text-lg text-gray-800 mb-6"></div>
+
+    <div id="tags" class="mb-10"></div>
+
+    <div>
+      <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">関連ニュース</h2>
+      <div id="related-news" class="space-y-2 text-sm text-gray-700">読み込み中...</div>
+    </div>
+  </div>
 </body>
 </html>
