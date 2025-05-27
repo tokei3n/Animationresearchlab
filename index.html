@@ -51,16 +51,17 @@
         const snapshot = await getDocs(q);
         newsList.innerHTML = "";
         snapshot.forEach(doc => {
-          const data = doc.data();
-          const li = document.createElement("li");
-          li.className = "flex justify-between items-center";
-          const date = data.createdAt?.toDate().toLocaleDateString("ja-JP") || "日時不明";
-          li.innerHTML = `
-            <a href="#" class="text-blue-600 hover:underline">${data.title}</a>
-            <span class="text-sm text-gray-500">${date}</span>
-          `;
-          newsList.appendChild(li);
-        });
+  const data = doc.data();
+  const li = document.createElement("li");
+  li.className = "flex justify-between items-center";
+  const date = data.createdAt?.toDate().toLocaleDateString("ja-JP") || "日時不明";
+  li.innerHTML = `
+    <a href="article.html?id=${doc.id}" class="text-blue-600 hover:underline">${data.title}</a>
+    <span class="text-sm text-gray-500">${date}</span>
+  `;
+  newsList.appendChild(li);
+});
+
       } catch (error) {
         console.error("最新ニュースの取得に失敗しました:", error);
       }
